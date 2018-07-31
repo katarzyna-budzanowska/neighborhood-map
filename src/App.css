@@ -9,3 +9,11 @@
   margin: 0;
   padding: 16px;
 }
+
+.App-body {
+  display: flex;
+}
+
+.App-menu {
+  width: 200px;
+}
