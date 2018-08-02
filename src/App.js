@@ -3,8 +3,22 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css';
 import Map from './Map';
 import Menu from './Menu';
+import locations from './locations.json';
 
 class App extends Component {
+  state = {
+    locations: locations,
+    selectedLocations: locations,
+  };
+
+  handleChange = _locations => {
+    if( _locations == '' ){
+      this.setState({ selectedLocations: locations });
+    } else {
+      this.setState({ selectedLocations: { [_locations]: locations[_locations]} });
+    }
+  };
+
   render() {
     return (
       <div className="App">
@@ -13,13 +27,16 @@ class App extends Component {
           <h1 className="App-title">Neighborhood Map</h1>
         </header>
         <div className="App-body">
-          <Menu className="App-menu"/>
+          <Menu
+            className="App-menu"
+            onChange={ this.handleChange }/>
           <Map
             center={{
               lat: 51.108017,
               lng: 17.038506
             }}
-            zoom={10}
+            zoom={13}
+            places = { this.state.selectedLocations }
           />
         </div>
       </div>
