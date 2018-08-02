@@ -1,0 +1,30 @@
+{
+  "parks": {
+    "szczytnicki" : {
+      "location" : {
+        "lat": 51.114984,
+        "lng": 17.081014
+      },
+      "name" : "Szytnicki Park"
+    }
+  },
+  "restaurants": {
+    "mamamanousch" : {
+      "location" : {
+        "lat": 51.108414,
+        "lng": 17.033026
+      },
+      "name" : "Mama Manousch"
+    }
+  },
+  "monuments": {
+    "chrobry" : {
+      "location" : {
+        "lat": 51.104347,
+        "lng": 17.031300
+      },
+      "name" : "Bolesław I the Brave"
+    }
+  }
+
+}
