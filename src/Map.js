@@ -1,62 +1,67 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
-import Park from '@material-ui/icons/LocalFloristOutlined';
-import Restaurant from '@material-ui/icons/LocalCafeOutlined';
-import Monuments from '@material-ui/icons/LandscapeOutlined';
 
 class Map extends Component {
 
-  renderParks = () => {
+  renderParks = ( map, maps ) => {
     if( !this.props.places.parks ) {
       return;
     }
     const parksList = Object.values(this.props.places.parks);
     return parksList.map( park => (
-      <Park
-          lat={park.location.lat}
-          lng={park.location.lng}
-      />
+      new maps.Marker({
+        position: park.location,
+        map,
+        title: park.name
+      })
     ))
   }
 
-  renderRestaurants = () => {
+  renderRestaurants = ( map, maps ) => {
     if( !this.props.places.restaurants ) {
       return;
     }
     const restaurantsList = Object.values(this.props.places.restaurants);
     return restaurantsList.map( restaurant => (
-      <Restaurant
-          lat={restaurant.location.lat}
-          lng={restaurant.location.lng}
-      />
+      new maps.Marker({
+        position: restaurant.location,
+        map,
+        title: restaurant.name
+      })
     ))
   }
 
-  renderMonuments = () => {
+  renderMonuments = ( map, maps ) => {
     if( !this.props.places.monuments ) {
       return;
     }
     const monumentsList = Object.values(this.props.places.monuments);
     return monumentsList.map( monument => (
-      <Monuments
-          lat={monument.location.lat}
-          lng={monument.location.lng}
-      />
+        new maps.Marker({
+          position: monument.location,
+          map,
+          title: monument.name
+        })
     ))
+  }
+
+  renderMarkers = ( map, maps ) => {
+    this.renderParks( map, maps );
+    this.renderMonuments( map, maps );
+    this.renderRestaurants( map, maps );
   }
 
   render() {
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '100vh', width: '100%' }}>
+      <div style={{ width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: 'AIzaSyCJ_vGAhBQ14GjHXc9h7Q49dhYgDeBA66o' }}
+          bootstrapURLKeys={{ key: 'AIzaSyC9TGshWjOkzBKIVk00Ud6VVHb_Ffkrm3I' }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
+          yesIWantToUseGoogleMapApiInternals={true}
+          onGoogleApiLoaded={({map, maps}) => this.renderMarkers(map, maps)}
         >
-          { this.renderParks() }
-          { this.renderRestaurants() }
-          { this.renderMonuments() }
         </GoogleMapReact>
       </div>
     );

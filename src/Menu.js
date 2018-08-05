@@ -6,8 +6,9 @@ import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
+import Divider from '@material-ui/core/Divider';
+import PlaceCard from './PlaceCard';
 
 const styles = theme => ({
   root: {
@@ -26,33 +27,61 @@ const styles = theme => ({
 class Menu extends Component {
   state = {
     locationType: '',
+    singleSelected: false,
+    singleLocation: null,
   };
+
+  places = () => {
+    const placesByType = Object.values( this.props.places );
+    const places = [];
+    for ( var type of placesByType ) {
+      places.push(...Object.values(type));
+    }
+    return places;
+  }
 
   handleChange = event => {
     this.setState({ locationType: event.target.value });
     this.props.onChange( event.target.value );
   };
 
+  selectLocation = event => {
+    const selection = {
+      singleSelected: true,
+      singleLocation: event.target };
+    this.setState( selection );
+    this.props.singleSelect( selection );
+  }
+
   render() {
-    const { classes } = this.props;
 
     return (
         <Paper classes={{root: this.props.className}} >
-          <FormControl className={classes.formControl}>
-          <InputLabel htmlFor="place-native-helper">Place</InputLabel>
-          <NativeSelect
-            value={this.state.locationType}
-            onChange={this.handleChange}
-            input={<Input name="place" id="place-native-helper" />}
-          >
-            <option value="" />
-            <option value='restaurants'>Restaurants</option>
-            <option value='parks'>Parks</option>
-            <option value='monuments'>Monuments</option>
-          </NativeSelect>
-          <FormHelperText>Choose place you want to visit</FormHelperText>
-        </FormControl>
-
+          <FormControl className="App-menu-selector" >
+            <InputLabel htmlFor="place-native-helper">Place</InputLabel>
+            <NativeSelect
+              value={this.state.locationType}
+              onChange={this.handleChange}
+              input={<Input name="place" id="place-native-helper" />}
+            >
+              <option value="" />
+              <option value='restaurants'>Restaurants</option>
+              <option value='parks'>Parks</option>
+              <option value='monuments'>Monuments</option>
+            </NativeSelect>
+            <FormHelperText>Choose place you want to visit</FormHelperText>
+          </FormControl>
+        <Divider />
+        <div className="App-menu-places">
+          { this.places().map( ( place, key ) =>
+             ( <div
+                onClick={this.selectLocation}
+                key={place.id}
+                id={place.id}
+               >
+                 <PlaceCard place={ place }/>
+              </div>))}
+        </div>
         </Paper>
     );
   }

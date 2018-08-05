@@ -12,11 +12,15 @@ class App extends Component {
   };
 
   handleChange = _locations => {
-    if( _locations == '' ){
+    if( _locations === '' ){
       this.setState({ selectedLocations: locations });
     } else {
       this.setState({ selectedLocations: { [_locations]: locations[_locations]} });
     }
+  };
+
+  handleSingeSelect = e => {
+    console.log( e );
   };
 
   render() {
@@ -29,7 +33,10 @@ class App extends Component {
         <div className="App-body">
           <Menu
             className="App-menu"
-            onChange={ this.handleChange }/>
+            onChange={ this.handleChange }
+            singleSelect={ this.handleSingeSelect }
+            places = { this.state.selectedLocations }
+          />
           <Map
             center={{
               lat: 51.108017,

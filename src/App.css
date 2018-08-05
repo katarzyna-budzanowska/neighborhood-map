@@ -10,10 +10,23 @@
   padding: 16px;
 }
 
+.App-header {
+  height: 60px;
+}
+
 .App-body {
   display: flex;
 }
 
 .App-menu {
-  width: 200px;
+  width: 300px;
+}
+
+.App-menu-selector {
+  height: 10vh;
+}
+
+.App-menu-places {
+  height: 80vh;
+  overflow: scroll;
 }

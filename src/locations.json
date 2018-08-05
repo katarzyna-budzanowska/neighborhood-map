@@ -1,29 +1,35 @@
 {
   "parks": {
     "szczytnicki" : {
+      "id" : "szczytnicki",
       "location" : {
         "lat": 51.114984,
         "lng": 17.081014
       },
-      "name" : "Szytnicki Park"
+      "name" : "Szytnicki Park",
+      "titleImg": "http://www.dreamer.pl/uploads/pliki/galeria/galeria_128/dsc04120.jpg"
     }
   },
   "restaurants": {
     "mamamanousch" : {
+      "id": "mamamanousch",
       "location" : {
         "lat": 51.108414,
         "lng": 17.033026
       },
-      "name" : "Mama Manousch"
+      "name" : "Mama Manousch",
+      "titleImg" : "http://www.mama-manousch.pl/wp-content/uploads/fly-images/525/MamaManousch_kaszamanna_net-6617-570x570-c.jpg"
     }
   },
   "monuments": {
     "chrobry" : {
+      "id": "chrobry",
       "location" : {
         "lat": 51.104347,
         "lng": 17.031300
       },
-      "name" : "Bolesław I the Brave"
+      "name" : "Bolesław I the Brave",
+      "titleImg" : "http://zdjeciaeuropa.blox.pl/resource/P9130051dom_towar_i_krol.jpg"
     }
   }
 
