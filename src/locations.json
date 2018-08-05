@@ -2,6 +2,7 @@
   "parks": {
     "szczytnicki" : {
       "id" : "szczytnicki",
+      "type" : "parks",
       "location" : {
         "lat": 51.114984,
         "lng": 17.081014
@@ -13,6 +14,7 @@
   "restaurants": {
     "mamamanousch" : {
       "id": "mamamanousch",
+      "type": "restaurants",
       "location" : {
         "lat": 51.108414,
         "lng": 17.033026
@@ -24,6 +26,7 @@
   "monuments": {
     "chrobry" : {
       "id": "chrobry",
+      "type": "monuments",
       "location" : {
         "lat": 51.104347,
         "lng": 17.031300

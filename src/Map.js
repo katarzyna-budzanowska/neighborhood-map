@@ -3,52 +3,62 @@ import GoogleMapReact from 'google-map-react';
 
 class Map extends Component {
 
+
   renderParks = ( map, maps ) => {
     if( !this.props.places.parks ) {
       return;
     }
-    const parksList = Object.values(this.props.places.parks);
-    return parksList.map( park => (
-      new maps.Marker({
-        position: park.location,
+
+    const markers = {};
+    for ( var key in this.props.places.parks ) {
+      const parks = this.props.places.parks[key];
+      markers[key] = new maps.Marker({
+        position: parks.location,
         map,
-        title: park.name
+        title: parks.name
       })
-    ))
+    }
+    return markers;
   }
 
   renderRestaurants = ( map, maps ) => {
     if( !this.props.places.restaurants ) {
       return;
     }
-    const restaurantsList = Object.values(this.props.places.restaurants);
-    return restaurantsList.map( restaurant => (
-      new maps.Marker({
+    const markers = {};
+    for ( var key in this.props.places.restaurants ) {
+      const restaurant = this.props.places.restaurants[key];
+      markers[key] = new maps.Marker({
         position: restaurant.location,
         map,
         title: restaurant.name
       })
-    ))
+    }
+    return markers;
   }
 
   renderMonuments = ( map, maps ) => {
     if( !this.props.places.monuments ) {
       return;
     }
-    const monumentsList = Object.values(this.props.places.monuments);
-    return monumentsList.map( monument => (
-        new maps.Marker({
-          position: monument.location,
-          map,
-          title: monument.name
-        })
-    ))
+    const markers = {};
+    for ( var key in this.props.places.monuments ) {
+      const monument = this.props.places.monuments[key];
+      markers[key] = new maps.Marker({
+        position: monument.location,
+        map,
+        title: monument.name
+      })
+    }
+    return markers;
   }
 
   renderMarkers = ( map, maps ) => {
-    this.renderParks( map, maps );
-    this.renderMonuments( map, maps );
-    this.renderRestaurants( map, maps );
+    const markers = {};
+    markers.parks = this.renderParks( map, maps );
+    markers.monuments = this.renderMonuments( map, maps );
+    markers.restaurants = this.renderRestaurants( map, maps );
+    this.props.getMapData(markers, map, maps);
   }
 
   render() {

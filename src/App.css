@@ -22,6 +22,18 @@
   width: 300px;
 }
 
+.App-menu-places-card {
+  cursor: pointer;
+}
+
+.App-menu-places-card-not-selected {
+  filter: grayscale(100%) opacity(75%);
+}
+
+.App-menu-places-card-selected {
+  filter: brightness(110%);
+}
+
 .App-menu-selector {
   height: 10vh;
 }
