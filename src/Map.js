@@ -62,13 +62,15 @@ class Map extends Component {
   }
 
   render() {
+    const {center, zoom, drawerOpened} = this.props;
+    const _class = drawerOpened ? 'App-map-small' : 'App-map';
     return (
       // Important! Always set the container height explicitly
-      <div style={{ width: '100%' }}>
+      <div className={_class}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyC9TGshWjOkzBKIVk00Ud6VVHb_Ffkrm3I' }}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
+          defaultCenter={center}
+          defaultZoom={zoom}
           yesIWantToUseGoogleMapApiInternals={true}
           onGoogleApiLoaded={({map, maps}) => this.renderMarkers(map, maps)}
         >

@@ -19,7 +19,15 @@
 }
 
 .App-menu {
-  width: 300px;
+  width: 25vw;
+}
+
+.App-map {
+  width: 75vw;
+}
+
+.App-map-small {
+  width: 50vw;
 }
 
 .App-menu-places-card {
