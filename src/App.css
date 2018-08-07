@@ -30,6 +30,10 @@
   width: 50vw;
 }
 
+.App-close-drawer {
+  float: right;
+}
+
 .App-menu-places-card {
   cursor: pointer;
 }

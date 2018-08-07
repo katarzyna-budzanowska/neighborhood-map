@@ -21,6 +21,10 @@ class Map extends Component {
     return markers;
   }
 
+  markerClicked = ( event ) => {
+    console.log( event );
+  }
+
   renderRestaurants = ( map, maps ) => {
     if( !this.props.places.restaurants ) {
       return;
@@ -53,11 +57,28 @@ class Map extends Component {
     return markers;
   }
 
+  markerClicked = ( type, id ) => ( ) => {
+    this.props.markerClicked( type, id );
+  }
+
+  addClicEventsToMarkers = ( markers, maps ) => {
+    for( var type in markers ) {
+      for( var id in markers[type] ) {
+        maps.event.addListener(
+            markers[type][id],
+            "click",
+            this.markerClicked(type, id)
+        );
+      }
+    }
+  }
+
   renderMarkers = ( map, maps ) => {
     const markers = {};
     markers.parks = this.renderParks( map, maps );
     markers.monuments = this.renderMonuments( map, maps );
     markers.restaurants = this.renderRestaurants( map, maps );
+    this.addClicEventsToMarkers( markers, maps );
     this.props.getMapData(markers, map, maps);
   }
 

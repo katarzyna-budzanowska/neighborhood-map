@@ -31,7 +31,7 @@ class Menu extends Component {
   };
 
   places = () => {
-    const placesByType = Object.values( this.props.places );
+    const placesByType = Object.values( this.props.selected );
     const places = [];
     for ( var type of placesByType ) {
       places.push(...Object.values(type));
@@ -41,7 +41,7 @@ class Menu extends Component {
 
   handleChange = event => {
     this.setState({ locationType: event.target.value, singleSelected: false });
-    this.props.onChange( event.target.value );
+    this.props.selectType( event.target.value );
   };
 
   selectLocation = event => {
@@ -84,7 +84,7 @@ class Menu extends Component {
           </FormControl>
         <Divider />
         <div className="App-menu-places">
-          { this.places().map( ( place, key ) => {
+          { this.props.selected && this.places().map( ( place, key ) => {
             const _class = "App-menu-places-card" + this.isLocationSelected(place);
              return (
                <div className={_class}

@@ -10,21 +10,55 @@
       "tags": "wroclaw,park,szczytnicki",
       "name" : "Szytnicki Park",
       "titleImg": "http://www.dreamer.pl/uploads/pliki/galeria/galeria_128/dsc04120.jpg"
+    },
+    "południowy" : {
+      "id" : "południowy",
+      "type" : "parks",
+      "location" : {
+        "lat": 51.076560,
+        "lng": 17.011948
+      },
+      "tags": "wroclaw,południowy",
+      "name" : "South Park",
+      "titleImg": "http://farm3.staticflickr.com/2744/4061094139_92f44753f2.jpg"
     }
   },
   "restaurants": {
-    "mamamanousch" : {
-      "id": "mamamanousch",
+    "piwnicaswidnicka" : {
+      "id": "piwnicaswidnicka",
       "type": "restaurants",
       "location" : {
-        "lat": 51.108414,
-        "lng": 17.033026
+        "lat": 51.109525,
+        "lng": 17.032007
       },
-      "name" : "Mama Manousch",
-      "titleImg" : "http://www.mama-manousch.pl/wp-content/uploads/fly-images/525/MamaManousch_kaszamanna_net-6617-570x570-c.jpg"
+      "tags": "piwnicaświdnicka",
+      "name" : "Piwnica Świdnicka",
+      "titleImg" : "http://farm3.staticflickr.com/2681/4316954841_276cdaf247.jpg"
+    },
+    "podpapugami" : {
+      "id": "podpapugami",
+      "type": "restaurants",
+      "location" : {
+        "lat": 51.110056,
+        "lng": 17.031158
+      },
+      "tags": "podpapugami,wrocław",
+      "name" : "Pod Papugami",
+      "titleImg" : "http://farm3.staticflickr.com/2753/4521336464_7d2061b2c2.jpg"
     }
   },
   "monuments": {
+    "halastulecia" : {
+      "id": "halastulecia",
+      "type": "monuments",
+      "location": {
+        "lat": 51.107704,
+        "lng": 17.077242
+      },
+      "tags": "centennialhall,wroclaw",
+      "name": "Centennia Hall",
+      "titleImg": "http://farm1.staticflickr.com/947/27184745607_c5cd37b05f.jpg"
+    },
     "chrobry" : {
       "id": "chrobry",
       "type": "monuments",
@@ -32,7 +66,7 @@
         "lat": 51.104347,
         "lng": 17.031300
       },
-      "tags": "wroclaw,chrobry",
+      "tags": "wrocław,Chrobry",
       "name" : "Bolesław I the Brave",
       "titleImg" : "http://zdjeciaeuropa.blox.pl/resource/P9130051dom_towar_i_krol.jpg"
     }

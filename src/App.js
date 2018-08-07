@@ -49,15 +49,33 @@ class App extends Component {
     }
   }
 
-  handleChange = locations => {
+  setSelected = ( _locations ) => {
+    this.setState({selectedLocations: {[_locations]: this.state.locations[_locations]}});
+  }
+
+  setAllLocations = () => {
+    this.setState({selectedLocations: locations});
+  }
+
+  setNoLocations = () => {
+    this.setState({selectedLocations: {}});
+  }
+
+  handleChange = ( _locations ) => {
     this.clearAllMarkers();
+    this.toggleDrawer(false)();
     this.setState({singleSelected:false})
-    if( locations === '' ){
+    if( _locations === '' ){
       this.showAllMarkers();
-    } else {
-      this.showMarkers( this.state.markers[locations] );
+      this.setAllLocations();
+    } else if ( _locations === 'none') {
+      this.setNoLocations();
     }
-  };
+    else {
+      this.showMarkers( this.state.markers[_locations] );
+      this.setSelected( _locations );
+    }
+  }
 
   toggleDrawer = ( state ) => () => {
     this.setState({
@@ -86,6 +104,10 @@ class App extends Component {
     this.toggleDrawer(true)();
   };
 
+  markerClicked = ( type, id ) => {
+    this.handleSingeSelect( {type, id} );
+  }
+
   getMapData = ( markers, map, maps ) => {
     this.setState({ markers, map, maps });
   }
@@ -100,9 +122,9 @@ class App extends Component {
         <div className="App-body">
           <Menu
             className="App-menu"
-            onChange={ this.handleChange }
+            selectType={this.handleChange}
             singleSelect={ this.handleSingeSelect }
-            places = { locations }
+            places = { this.state.selectedLocations }
             selected = { this.state.selectedLocations }
           />
           <Map
@@ -114,6 +136,7 @@ class App extends Component {
             places={ locations }
             getMapData={ this.getMapData }
             drawerOpened={this.state.drawer}
+            markerClicked={this.markerClicked}
           />
           <Drawer
             variant="persistent"

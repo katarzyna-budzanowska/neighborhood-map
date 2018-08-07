@@ -5,8 +5,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
+import Close from '@material-ui/icons/CancelTwoTone';
 
 const styles = theme => ({
   root: {
@@ -16,7 +15,13 @@ const styles = theme => ({
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
-  gridList: {
+  gridListTitle: {
+    height: 'auto',
+    display: 'flex',
+    alignItems: 'center'
+  },
+  subheader: {
+    flexGrow: '1'
   },
   icon: {
     color: 'rgba(255, 255, 255, 0.54)',
@@ -84,10 +89,13 @@ class LocationInformation extends Component {
     } else {
       return (
         <div className={classes.root}>
-     <GridList cellHeight={180} cols={1} className={classes.gridList}>
-       <GridListTile key="Subheader" cols={1} style={{ height: 'auto' }}>
-         <ListSubheader component="div">Location Pictures</ListSubheader>
-       </GridListTile>
+          <GridList cellHeight={180} cols={1}>
+            <GridListTile key="Subheader" cols={1} style={{ height: 'auto'}}  >
+              <div className={classes.gridListTitle} >
+                <ListSubheader component="div" className={classes.subheader} >Location Pictures</ListSubheader>
+                <Close className="App-close-drawer" />
+              </div>
+            </GridListTile>
        {pictures.map(p => (
          <GridListTile key={p.img}>
             <a href={p.img} target="_blank">
