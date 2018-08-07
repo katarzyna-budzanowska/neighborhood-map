@@ -12,6 +12,8 @@ class App extends Component {
     locations: locations,
     selectedLocations: locations,
     singleSelected: false,
+    selection: {},
+    locationType: '',
     location: null,
     markers: {},
     map: null,
@@ -64,7 +66,7 @@ class App extends Component {
   handleChange = ( _locations ) => {
     this.clearAllMarkers();
     this.toggleDrawer(false)();
-    this.setState({singleSelected:false})
+    this.setState({singleSelected:false, locationType: _locations})
     if( _locations === '' ){
       this.showAllMarkers();
       this.setAllLocations();
@@ -99,7 +101,11 @@ class App extends Component {
     this.showMarker(marker);
     this.dropMarker(marker);
     const location = locations[type][id];
-    this.setState({location, singleSelected:true});
+    this.setState({
+      location,
+      singleSelected:true,
+      locationType: 'none',
+      selection });
     this.panMapToLocation(location);
     this.toggleDrawer(true)();
   };
@@ -122,7 +128,10 @@ class App extends Component {
         <div className="App-body">
           <Menu
             className="App-menu"
+            locationType={this.state.locationType}
             selectType={this.handleChange}
+            selection={this.state.selection}
+            singleSelected={this.state.singleSelected}
             singleSelect={ this.handleSingeSelect }
             places = { this.state.selectedLocations }
             selected = { this.state.selectedLocations }

@@ -25,9 +25,8 @@ const styles = theme => ({
 
 class Menu extends Component {
   state = {
-    locationType: '',
     singleSelected: false,
-    selection: null,
+    selection: {},
   };
 
   places = () => {
@@ -40,7 +39,7 @@ class Menu extends Component {
   }
 
   handleChange = event => {
-    this.setState({ locationType: event.target.value, singleSelected: false });
+    this.setState({ singleSelected: false });
     this.props.selectType( event.target.value );
   };
 
@@ -49,16 +48,16 @@ class Menu extends Component {
       type: event.target.dataset.type,
       id: event.target.dataset.id
     };
-    this.setState( { singleSelected: true, selection, locationType: 'none' } );
+    this.setState( { selection } );
     this.props.singleSelect( selection );
   }
 
   isLocationSelected = location => {
-    if( ! this.state.singleSelected) {
+    if( ! this.props.singleSelected) {
       return '';
     }
-    if( this.state.selection.type === location.type &&
-      this.state.selection.id === location.id ) {
+    if( this.props.selection.type === location.type &&
+      this.props.selection.id === location.id ) {
       return ' App-menu-places-card-selected';
     }
     return ' App-menu-places-card-not-selected'
@@ -70,7 +69,7 @@ class Menu extends Component {
         <Paper classes={{root: this.props.className}} >
           <FormControl className="App-menu-selector" >
             <NativeSelect
-              value={this.state.locationType}
+              value={this.props.locationType}
               onChange={this.handleChange}
               input={<Input name="place" id="place-native-helper" />}
             >

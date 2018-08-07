@@ -38,6 +38,10 @@
   cursor: pointer;
 }
 
+.App-flickr-attribution {
+  font-size: 10px;
+}
+
 .App-menu-places-card-not-selected {
   filter: grayscale(100%) opacity(75%);
 }

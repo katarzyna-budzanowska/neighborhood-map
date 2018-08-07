@@ -11,8 +11,8 @@
       "name" : "Szytnicki Park",
       "titleImg": "http://www.dreamer.pl/uploads/pliki/galeria/galeria_128/dsc04120.jpg"
     },
-    "południowy" : {
-      "id" : "południowy",
+    "poludniowy" : {
+      "id" : "poludniowy",
       "type" : "parks",
       "location" : {
         "lat": 51.076560,

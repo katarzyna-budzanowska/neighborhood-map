@@ -95,6 +95,7 @@ class LocationInformation extends Component {
                 <ListSubheader component="div" className={classes.subheader} >Location Pictures</ListSubheader>
                 <Close className="App-close-drawer" />
               </div>
+              <div className="App-flickr-attribution">Pictures search powered by Flickr</div>
             </GridListTile>
        {pictures.map(p => (
          <GridListTile key={p.img}>
