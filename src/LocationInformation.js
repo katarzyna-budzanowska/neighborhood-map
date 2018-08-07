@@ -37,34 +37,41 @@ class LocationInformation extends Component {
     return {__html: markup};
   }
 
+  getImages = () => {
+
+      const KEY = '9646efb3a5f554c109aab278f89d2e24';
+      const num = 10;
+      const tags = this.props.tags;
+
+      fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${KEY}&tags=${tags}&tag_mode=all&per_page=${num}&page=1&format=json&nojsoncallback=1`)
+        .then(res => res.json())
+        .then( (result) => {
+              const pictures = result.photos.photo.map( p => ( {
+                img: 'http://farm' + p.farm + '.staticflickr.com/' + p.server + '/' + p.id + '_' + p.secret + '.jpg',
+                title: p.title ? p.title : ''
+              }));
+            this.setState({
+              isLoaded: true,
+              pictures
+            });
+          },
+          (error) => {
+            this.setState({
+              isLoaded: true,
+              error
+            });
+          }
+        )
+  }
+
   componentDidMount() {
+    this.getImages();
+  }
 
-    const KEY = '9646efb3a5f554c109aab278f89d2e24';
-    const num = 10;
-    const tags = this.props.tags;
-
-    fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${KEY}&tags=${tags}&tag_mode=all&per_page=${num}&page=1&format=json&nojsoncallback=1`)
-      .then(res => res.json())
-      .then( (result) => {
-            const pictures = result.photos.photo.map( p => ( {
-              img: 'http://farm' + p.farm + '.staticflickr.com/' + p.server + '/' + p.id + '_' + p.secret + '.jpg',
-              title: p.title ? p.title : ''
-            }));
-          this.setState({
-            isLoaded: true,
-            pictures
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error
-          });
-        }
-      )
+  componentDidUpdate(prevProps) {
+    if (this.props.tags !== prevProps.tags) {
+      this.getImages();
+    }
   }
 
   render() {
@@ -79,19 +86,15 @@ class LocationInformation extends Component {
         <div className={classes.root}>
      <GridList cellHeight={180} cols={1} className={classes.gridList}>
        <GridListTile key="Subheader" cols={1} style={{ height: 'auto' }}>
-         <ListSubheader component="div">December</ListSubheader>
+         <ListSubheader component="div">Location Pictures</ListSubheader>
        </GridListTile>
        {pictures.map(p => (
          <GridListTile key={p.img}>
-           <img src={p.img} alt={p.title} />
+            <a href={p.img} target="_blank">
+              <img src={p.img} alt={p.title} />
+            </a>
            <GridListTileBar
              title={p.title}
-             subtitle={<span>by: {p.author}</span>}
-             actionIcon={
-               <IconButton className={classes.icon}>
-                 <InfoIcon />
-               </IconButton>
-             }
            />
          </GridListTile>
        ))}
