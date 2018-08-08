@@ -3,7 +3,6 @@ import GoogleMapReact from 'google-map-react';
 
 class Map extends Component {
 
-
   renderParks = ( map, maps ) => {
     if( !this.props.places.parks ) {
       return;

@@ -4,7 +4,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 
 const styles = {
   card: {
@@ -12,30 +11,23 @@ const styles = {
     pointerEvents: "none"
   },
   media: {
-    height: '100px',
-    paddingTop: '0',
-    paddingBottom: '0',
+    height: '160px',
   },
-  title: {
-    paddingTop: '4px',
-    paddingBottom: '4px',
-  }
 };
 
 function PlaceCard(props) {
   const { classes, place } = props;
   return (
       <Card className={classes.card}>
-        <CardMedia
-            className={classes.media}
-            image={place.titleImg}
-            title="Place image"
+          <CardMedia
+              className={classes.media}
+              classes={{root: "App-place-card"}}
+              image={place.titleImg}
+              title="Place image"
           />
-          <CardContent className={classes.title}>
-          <Typography variant="headline" component="h2">
+          <h2 className="App-placecard-title">
             {place.name}
-          </Typography>
-        </CardContent>
+          </h2>
       </Card>
   );
 }

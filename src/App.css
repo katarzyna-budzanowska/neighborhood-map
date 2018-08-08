@@ -50,11 +50,60 @@
   filter: brightness(110%);
 }
 
-.App-menu-selector {
-  height: 10vh;
-}
-
 .App-menu-places {
   height: 80vh;
   overflow: scroll;
+}
+
+.App-placecard-title {
+  font-weight: normal;
+  margin: 4px;
+}
+
+.App-place-card-media-small {
+  display: none;
+}
+
+/* On screens that are 992px or less, set the background color to blue */
+@media screen and (max-width: 992px) {
+  .App-body {
+    flex-direction: column;
+  }
+
+  .App-menu {
+    width: inherit;
+  }
+
+  .App-map {
+    width: 100vw;
+    height: 65vh;
+  }
+
+  .App-placecard-title {
+    font-size: small;
+    font-weight: lighter;
+  }
+
+  .App-map-small {
+    width: 100vw;
+    height: 80vh;
+  }
+
+  .App-menu-places {
+    display: flex;
+    flex-direction: row;
+    height: inherit;
+  }
+
+  .App-place-card {
+    width: 200px;
+  }
+
+  .App-place-card-media-small {
+    display: inherit;
+  }
+
+  .App-place-card-media-big {
+    display: none;
+  }
 }
