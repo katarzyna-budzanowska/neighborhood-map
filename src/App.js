@@ -147,9 +147,10 @@ class App extends Component {
             drawerOpened={this.state.drawer}
             markerClicked={this.markerClicked}
           />
+        <div className="App-drawer-small">
           <Drawer
             variant="persistent"
-            anchor="right"
+            anchor="bottom"
             open={this.state.drawer}
             onClose={this.toggleDrawer(false)}>
               <div
@@ -158,13 +159,34 @@ class App extends Component {
                 onClick={this.toggleDrawer(false)}
                 onKeyDown={this.toggleDrawer(false)}
               >
-                <div style={{ width: '25vw' }}>
+                <div>
                   { this.state.singleSelected &&
                     <LocationInformation tags={this.state.location.tags}/>
                   }
                 </div>
               </div>
             </Drawer>
+          </div>
+          <div className="App-drawer-big">
+            <Drawer
+              variant="persistent"
+              anchor="right"
+              open={this.state.drawer}
+              onClose={this.toggleDrawer(false)}>
+                <div
+                  tabIndex={0}
+                  role="button"
+                  onClick={this.toggleDrawer(false)}
+                  onKeyDown={this.toggleDrawer(false)}
+                >
+                  <div style={{ width: '25vw' }}>
+                    { this.state.singleSelected &&
+                      <LocationInformation tags={this.state.location.tags}/>
+                    }
+                  </div>
+                </div>
+              </Drawer>
+            </div>
         </div>
       </div>
     );

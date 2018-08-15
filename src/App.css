@@ -60,12 +60,49 @@
   margin: 4px;
 }
 
-.App-place-card-media-small {
+.App-drawer-small {
   display: none;
+}
+
+.App-drawer-big {
+  display: inherit;
+}
+
+.App-location-information{
+    overflow: hidden;
 }
 
 /* On screens that are 992px or less, set the background color to blue */
 @media screen and (max-width: 992px) {
+
+  .App-location-information{
+      overflow: scroll;
+  }
+
+  .App-location-information .App-location-information-list{
+    flex-direction: row;
+    flex-wrap: inherit;
+  }
+
+  .App-location-information-title {
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 48px;
+    color: white;
+    display: flex;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  }
+
+  .App-location-information-list-item {
+    /* We need !important because element.style is applied
+    by material-ui component. This is the easiest way to overide it */
+    width: 50% !important;
+  }
+
   .App-body {
     flex-direction: column;
   }
@@ -99,11 +136,12 @@
     width: 200px;
   }
 
-  .App-place-card-media-small {
+  .App-drawer-big {
+    display: none;
+  }
+
+  .App-drawer-small {
     display: inherit;
   }
 
-  .App-place-card-media-big {
-    display: none;
-  }
 }
