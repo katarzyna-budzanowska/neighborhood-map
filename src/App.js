@@ -106,8 +106,8 @@ class App extends Component {
       singleSelected:true,
       locationType: 'none',
       selection });
-    this.panMapToLocation(location);
     this.toggleDrawer(true)();
+    this.panMapToLocation(location);
   };
 
   markerClicked = ( type, id ) => {
