@@ -76,7 +76,12 @@ class LocationInformation extends Component {
     const { classes } = this.props;
     const { error, isLoaded, pictures } = this.state;
     if (error) {
-      return <div>Error: {error.message}</div>;
+      return (
+        <div>
+          <div>Location images have not loaded - please try again later</div>
+          <div>Error: {error.message}</div>
+        </div>
+      );
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
