@@ -27,6 +27,7 @@ class Menu extends Component {
   state = {
     singleSelected: false,
     selection: {},
+    focus: ""
   };
 
   places = () => {
@@ -52,6 +53,18 @@ class Menu extends Component {
     this.props.singleSelect( selection );
   }
 
+  selectLocationKey = event => {
+    if(event.key !== 'Enter'){
+      return;
+    }
+    const selection = {
+      type: event.target.dataset.type,
+      id: event.target.dataset.id
+    };
+    this.setState( { selection } );
+    this.props.singleSelect( selection );
+  }
+
   isLocationSelected = location => {
     if( ! this.props.singleSelected) {
       return '';
@@ -63,6 +76,17 @@ class Menu extends Component {
     return ' App-menu-places-card-not-selected'
   }
 
+  hasFocus = id => {
+    if( this.state.focus === id ) {
+      return ' App-menu-places-card-has-focus';
+    }
+    return "";
+  }
+
+  onFocus = ( id ) => () => {
+    this.setState( { focus: id } );
+  }
+
   render() {
 
     return (
@@ -71,7 +95,8 @@ class Menu extends Component {
             <NativeSelect
               value={this.props.locationType}
               onChange={this.handleChange}
-              input={<Input name="place" id="place-native-helper" />}
+              input={<Input name="place" id="place-native-helper"/>}
+              tabIndex={"-1" /* -1 removes focus on enclosing component*/}
             >
               <option value="">All</option>
               <option value='none'>None</option>
@@ -84,13 +109,16 @@ class Menu extends Component {
         <Divider />
         <div className="App-menu-places">
           { this.props.selected && this.places().map( ( place, key ) => {
-            const _class = "App-menu-places-card" + this.isLocationSelected(place);
+            const _class = "App-menu-places-card" + this.isLocationSelected(place) + this.hasFocus( place.id );
              return (
                <div className={_class}
                 data-id={place.id}
                 data-type={place.type}
                 onClick={this.selectLocation}
+                onKeyDown={this.selectLocationKey}
+                onFocus={this.onFocus(place.id)}
                 key={place.id}
+                tabIndex="0"
                >
                  <PlaceCard place={ place } />
                </div>

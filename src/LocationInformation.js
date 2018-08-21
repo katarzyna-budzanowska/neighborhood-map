@@ -88,16 +88,9 @@ class LocationInformation extends Component {
       return (
         <div className="App-location-information">
           <GridList cellHeight={180} cols={1} classes={{root: "App-location-information-list"}}>
-            <li key="Subheader" cols={1} style={{ height: 'auto'}}  >
-              <div className={classes.gridListTitle} >
-                <ListSubheader component="div" className={classes.subheader} >Location Pictures</ListSubheader>
-                <Close className="App-close-drawer" />
-              </div>
-              <div className="App-flickr-attribution">Pictures search powered by Flickr</div>
-            </li>
              {pictures.map(p => (
                <GridListTile classes={{root: "App-location-information-list-item"}} key={p.img}>
-                  <a href={p.img} target="_blank">
+                  <a href={p.img} className="App-location-information-list-item-image" target="_blank">
                     <img src={p.img} alt={p.title} />
                   </a>
                  <GridListTileBar

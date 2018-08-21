@@ -4,8 +4,7 @@ import './App.css'
 import Map from './Map';
 import Menu from './Menu';
 import locations from './locations.json';
-import Drawer from '@material-ui/core/Drawer';
-import LocationInformation from './LocationInformation';
+import LocationsInformation from './LocationsInformation';
 
 class App extends Component {
   state = {
@@ -88,6 +87,20 @@ class App extends Component {
     }, 1000);
   };
 
+  toggleDrawerKey = ( state ) => ( event ) => {
+
+    if(event.key !== 'Enter' && event.key !== 'Escape'){
+      return;
+    }
+
+    this.setState({
+      drawer: state,
+    });
+    setTimeout(() => {
+      this.state.maps.event.trigger(this.state.map,'resize');
+    }, 1000);
+  };
+
   panMapToLocation = ( location ) => {
     const latLng = new this.state.maps.LatLng(location.location.lat, location.location.lng);
     this.state.map.panTo(latLng);
@@ -146,47 +159,14 @@ class App extends Component {
             getMapData={ this.getMapData }
             drawerOpened={this.state.drawer}
             markerClicked={this.markerClicked}
+            tabIndex="-1"
           />
-        <div className="App-drawer-small">
-          <Drawer
-            variant="persistent"
-            anchor="bottom"
-            open={this.state.drawer}
-            onClose={this.toggleDrawer(false)}>
-              <div
-                tabIndex={0}
-                role="button"
-                onClick={this.toggleDrawer(false)}
-                onKeyDown={this.toggleDrawer(false)}
-              >
-                <div>
-                  { this.state.singleSelected &&
-                    <LocationInformation tags={this.state.location.tags}/>
-                  }
-                </div>
-              </div>
-            </Drawer>
-          </div>
-          <div className="App-drawer-big">
-            <Drawer
-              variant="persistent"
-              anchor="right"
-              open={this.state.drawer}
-              onClose={this.toggleDrawer(false)}>
-                <div
-                  tabIndex={0}
-                  role="button"
-                  onClick={this.toggleDrawer(false)}
-                  onKeyDown={this.toggleDrawer(false)}
-                >
-                  <div style={{ width: '25vw' }}>
-                    { this.state.singleSelected &&
-                      <LocationInformation tags={this.state.location.tags}/>
-                    }
-                  </div>
-                </div>
-              </Drawer>
-            </div>
+          <LocationsInformation
+            opened={this.state.drawer}
+            toggleDrawer={this.toggleDrawer}
+            toggleDrawerKey={this.toggleDrawerKey}
+            location={this.state.location}
+          />
         </div>
       </div>
     );

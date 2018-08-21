@@ -86,8 +86,9 @@ class Map extends Component {
     const _class = drawerOpened ? 'App-map-small' : 'App-map';
     return (
       // Important! Always set the container height explicitly
-      <div className={_class}>
+      <div className={_class} tabIndex="-1">
         <GoogleMapReact
+          tabIndex="-1"
           bootstrapURLKeys={{ key: 'AIzaSyC9TGshWjOkzBKIVk00Ud6VVHb_Ffkrm3I' }}
           defaultCenter={center}
           defaultZoom={zoom}

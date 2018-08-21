@@ -50,6 +50,14 @@
   filter: brightness(110%);
 }
 
+.App-location-information-list-item-image:focus {
+  filter: brightness(150%) ;
+}
+
+.App-menu-places-card-has-focus {
+  filter: brightness(150%) ;
+}
+
 .App-menu-places {
   height: 80vh;
   overflow: scroll;
