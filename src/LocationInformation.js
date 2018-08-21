@@ -91,7 +91,7 @@ class LocationInformation extends Component {
              {pictures.map(p => (
                <GridListTile classes={{root: "App-location-information-list-item"}} key={p.img}>
                   <a href={p.img} className="App-location-information-list-item-image" target="_blank">
-                    <img src={p.img} alt={p.title} />
+                    <img src={p.img} alt={"Location picture: " + p.title} />
                   </a>
                  <GridListTileBar
                    title={p.title}

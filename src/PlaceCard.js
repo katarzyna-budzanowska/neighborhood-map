@@ -23,6 +23,7 @@ function PlaceCard(props) {
               classes={{root: "App-place-card"}}
               image={place.titleImg}
               title="Place image"
+              alt={"Place image of " + place.name } 
           />
           <h2 className="App-placecard-title">
             {place.name}
