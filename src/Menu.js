@@ -93,6 +93,7 @@ class Menu extends Component {
         <Paper classes={{root: this.props.className}} >
           <FormControl className="App-menu-selector" >
             <NativeSelect
+              aria-label="Select location category"
               value={this.props.locationType}
               onChange={this.handleChange}
               input={<Input alt="Select locations category" name="place" id="place-native-helper"/>}
@@ -120,7 +121,7 @@ class Menu extends Component {
                 key={place.id}
                 tabIndex="0"
                >
-                 <PlaceCard place={ place } />
+                 <PlaceCard place={ place } aria-label="Select location, is selectable."/>
                </div>
              );})}
         </div>

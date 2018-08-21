@@ -68,7 +68,7 @@ class LocationsInformation extends Component {
               <div style={{ width: '25vw' }}>
                 <div >
                     Location Pictures
-                    <Close className="App-close-drawer" />
+                    <Close aria-label="Close" className="App-close-drawer" />
                   <div className="App-flickr-attribution">Pictures search powered by Flickr</div>
                 </div>
                 { opened &&

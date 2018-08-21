@@ -86,7 +86,7 @@ class LocationInformation extends Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <div className="App-location-information">
+        <div className="App-location-information" aria-label="Locations pictures">
           <GridList cellHeight={180} cols={1} classes={{root: "App-location-information-list"}}>
              {pictures.map(p => (
                <GridListTile classes={{root: "App-location-information-list-item"}} key={p.img}>
