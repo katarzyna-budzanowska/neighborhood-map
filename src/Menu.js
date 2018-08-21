@@ -95,7 +95,7 @@ class Menu extends Component {
             <NativeSelect
               value={this.props.locationType}
               onChange={this.handleChange}
-              input={<Input name="place" id="place-native-helper"/>}
+              input={<Input alt="Select locations category" name="place" id="place-native-helper"/>}
               tabIndex={"-1" /* -1 removes focus on enclosing component*/}
             >
               <option value="">All</option>
