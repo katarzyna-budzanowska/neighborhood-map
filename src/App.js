@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import './App.css'
 import Map from './Map';
@@ -8,24 +8,24 @@ import LocationsInformation from './LocationsInformation';
 
 class App extends Component {
   state = {
-    locations: locations,          // hardcoded locations
-    selectedLocations: locations,  // subset of currently selected locations
-    singleSelected: false,         // is one location selected
-    selection: null,               // which location is selected
-    locationType: '',              // type of locations from the locations type selector
-    location: null,                // selected location with map id, used for panning
-    markers: {},                   // markers on map
-    map: null,                     // map handler
-    maps: null,                    // maps api
-    drawer: false,                 // is drawer (location information panel) opened
+    locations: locations, // hardcoded locations
+    selectedLocations: locations, // subset of currently selected locations
+    singleSelected: false, // is one location selected
+    selection: null, // which location is selected
+    locationType: '', // type of locations from the locations type selector
+    location: null, // selected location with map id, used for panning
+    markers: {}, // markers on map
+    map: null, // map handler
+    maps: null, // maps api
+    drawer: false, // is drawer (location information panel) opened
   };
 
   /*
     Hide all markers on map.
   */
   clearAllMarkers = () => {
-    for( var key in this.state.markers ) {
-      for( var location in this.state.markers[key] ) {
+    for (var key in this.state.markers) {
+      for (var location in this.state.markers[key]) {
         this.state.markers[key][location].setMap(null);
       }
     }
@@ -35,8 +35,8 @@ class App extends Component {
     Show all markers on map.
   */
   showAllMarkers = () => {
-    for( var key in this.state.markers ) {
-      for( var location in this.state.markers[key] ) {
+    for (var key in this.state.markers) {
+      for (var location in this.state.markers[key]) {
         this.state.markers[key][location].setMap(this.state.map);
       }
     }
@@ -45,7 +45,7 @@ class App extends Component {
   /*
     Show single marker on map
   */
-  showMarker = ( marker ) => {
+  showMarker = (marker) => {
     marker.setMap(this.state.map);
   }
 
@@ -53,24 +53,28 @@ class App extends Component {
     Animate marker on map
     This improves visual indication
   */
-  dropMarker = ( marker ) => {
+  dropMarker = (marker) => {
     marker.setAnimation(this.state.maps.Animation.BOUNCE)
   }
 
   /*
     Show set of showMarkers on map
   */
-  showMarkers = ( markers ) => {
-    for( var marker in markers ){
-      this.showMarker( markers[marker] );
+  showMarkers = (markers) => {
+    for (var marker in markers) {
+      this.showMarker(markers[marker]);
     }
   }
 
   /*
     Which type of locations are selected
   */
-  setSelected = ( _locations ) => {
-    this.setState({selectedLocations: {[_locations]: this.state.locations[_locations]}});
+  setSelected = (_locations) => {
+    this.setState({
+      selectedLocations: {
+        [_locations]: this.state.locations[_locations]
+      }
+    });
   }
 
   /*
@@ -90,55 +94,50 @@ class App extends Component {
   /*
     Locations selection type selection was changed
   */
-  handleChange = ( _locations ) => {
+  handleChange = (_locations) => {
     this.clearAllMarkers();
     this.toggleDrawer(false)();
-    this.setState({singleSelected:false, locationType: _locations})
-    if( _locations === '' ){
+    this.setState({singleSelected: false, locationType: _locations})
+    if (_locations === '') {
       this.showAllMarkers();
       this.setAllLocations();
-    } else if ( _locations === 'none') {
+    } else if (_locations === 'none') {
       this.setNoLocations();
-    }
-    else {
-      this.showMarkers( this.state.markers[_locations] );
-      this.setSelected( _locations );
+    } else {
+      this.showMarkers(this.state.markers[_locations]);
+      this.setSelected(_locations);
     }
   }
 
   /*
     Open/close location information panel ( used with mose actions )
   */
-  toggleDrawer = ( state ) => () => {
-    this.setState({
-      drawer: state,
-    });
+  toggleDrawer = (state) => () => {
+    this.setState({drawer: state});
     setTimeout(() => {
-      this.state.maps.event.trigger(this.state.map,'resize');
+      this.state.maps.event.trigger(this.state.map, 'resize');
     }, 1000);
   };
 
   /*
     Open/close location information panel ( used with keyboard actions )
   */
-  toggleDrawerKey = ( state ) => ( event ) => {
+  toggleDrawerKey = (state) => (event) => {
 
-    if(event.key !== 'Enter' && event.key !== 'Escape'){
+    if (event.key !== 'Enter' && event.key !== 'Escape') {
       return;
     }
 
-    this.setState({
-      drawer: state,
-    });
+    this.setState({drawer: state});
     setTimeout(() => {
-      this.state.maps.event.trigger(this.state.map,'resize');
+      this.state.maps.event.trigger(this.state.map, 'resize');
     }, 1000);
   };
 
   /*
     Pan map to selected location. This centers map on single selected location.
   */
-  panMapToLocation = ( location ) => {
+  panMapToLocation = (location) => {
     const latLng = new this.state.maps.LatLng(location.location.lat, location.location.lng);
     this.state.map.panTo(latLng);
   }
@@ -154,11 +153,7 @@ class App extends Component {
     this.showMarker(marker);
     this.dropMarker(marker);
     const location = locations[type][id];
-    this.setState({
-      location,
-      singleSelected:true,
-      locationType: 'none',
-      selection });
+    this.setState({location, singleSelected: true, locationType: 'none', selection});
     this.toggleDrawer(true)();
     this.panMapToLocation(location);
   };
@@ -166,56 +161,32 @@ class App extends Component {
   /*
     Marker on map was clicked
   */
-  markerClicked = ( type, id ) => {
-    this.handleSingeSelect( {type, id} );
+  markerClicked = (type, id) => {
+    this.handleSingeSelect({type, id});
   }
 
   /*
     Save map information: handler, api, markers.
   */
-  getMapData = ( markers, map, maps ) => {
-    this.setState({ markers, map, maps });
+  getMapData = (markers, map, maps) => {
+    this.setState({markers, map, maps});
   }
 
   render() {
-    return (
-      <div className="App">
-        <CssBaseline />
-        <header className="App-header">
-          <h1 className="App-title">Neighborhood Map</h1>
-        </header>
-        <div className="App-body">
-          <Menu
-            className="App-menu"
-            locationType={this.state.locationType}
-            selectType={this.handleChange}
-            selection={this.state.selection}
-            singleSelected={this.state.singleSelected}
-            singleSelect={ this.handleSingeSelect }
-            places = { this.state.selectedLocations }
-            selected = { this.state.selectedLocations }
-          />
-          <Map
-            center={{
-              lat: 51.108017,
-              lng: 17.038506
-            }}
-            zoom={13}
-            places={ locations }
-            getMapData={ this.getMapData }
-            drawerOpened={this.state.drawer}
-            markerClicked={this.markerClicked}
-            tabIndex="-1"
-          />
-          <LocationsInformation
-            opened={this.state.drawer}
-            toggleDrawer={this.toggleDrawer}
-            toggleDrawerKey={this.toggleDrawerKey}
-            location={this.state.location}
-          />
-        </div>
+    return (<div className="App">
+      <CssBaseline/>
+      <header className="App-header">
+        <h1 className="App-title">Neighborhood Map ( powered by Flickr )</h1>
+      </header>
+      <div className="App-body">
+        <Menu className="App-menu" locationType={this.state.locationType} selectType={this.handleChange} selection={this.state.selection} singleSelected={this.state.singleSelected} singleSelect={this.handleSingeSelect} places={this.state.selectedLocations} selected={this.state.selectedLocations}/>
+        <Map center={{
+            lat: 51.108017,
+            lng: 17.038506
+          }} zoom={13} places={locations} getMapData={this.getMapData} drawerOpened={this.state.drawer} markerClicked={this.markerClicked} tabIndex="-1"/>
+        <LocationsInformation opened={this.state.drawer} toggleDrawer={this.toggleDrawer} toggleDrawerKey={this.toggleDrawerKey} location={this.state.location}/>
       </div>
-    );
+    </div>);
   }
 }
 
