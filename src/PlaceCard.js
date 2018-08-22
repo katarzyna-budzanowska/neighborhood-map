@@ -14,6 +14,9 @@ const styles = {
   },
 };
 
+/*
+  This component presents single location in the menu.
+*/
 function PlaceCard(props) {
   const { classes, place } = props;
   return (
@@ -23,7 +26,7 @@ function PlaceCard(props) {
               classes={{root: "App-place-card"}}
               image={place.titleImg}
               title="Place image"
-              alt={"Place image of " + place.name } 
+              alt={"Place image of " + place.name }
           />
           <h2 className="App-placecard-title">
             {place.name}

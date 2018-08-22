@@ -21,6 +21,11 @@ const styles = theme => ({
   },
 });
 
+/*
+  This component presents information about selected location.
+  Using predefined tags list it serches Flickr for related images and
+  presents found images in a form of a list.
+*/
 class LocationInformation extends Component {
   constructor(props) {
     super(props);
@@ -31,15 +36,11 @@ class LocationInformation extends Component {
     };
   }
 
-  createMarkup(markup) {
-    return {__html: markup};
-  }
-
   getImages = () => {
 
       const KEY = '9646efb3a5f554c109aab278f89d2e24';
       const num = 10;
-      const tags = this.props.tags;
+      const tags = this.props.tags; // Tags are defined in locations json file
 
       fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${KEY}&tags=${tags}&tag_mode=all&per_page=${num}&page=1&format=json&nojsoncallback=1`)
         .then(res => res.json())
@@ -66,6 +67,10 @@ class LocationInformation extends Component {
     this.getImages();
   }
 
+  /*
+    One component is responsible for all locations so we want to check if
+    location was changed here. If location was changed we fetch new set of images.
+  */
   componentDidUpdate(prevProps) {
     if (this.props.tags !== prevProps.tags) {
       this.getImages();

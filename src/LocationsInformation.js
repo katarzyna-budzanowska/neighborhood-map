@@ -4,6 +4,12 @@ import LocationInformation from './LocationInformation';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Close from '@material-ui/icons/CancelTwoTone';
 
+
+/*
+  Handles location presentation. When single location is selected a drawer is opened.
+  Drawer presents a list of location related images. Depending on screen size drawer
+  is opened either on right side or from bottom.
+*/
 class LocationsInformation extends Component {
   state = {
     focus: null

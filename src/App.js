@@ -8,18 +8,21 @@ import LocationsInformation from './LocationsInformation';
 
 class App extends Component {
   state = {
-    locations: locations,
-    selectedLocations: locations,
-    singleSelected: false,
-    selection: {},
-    locationType: '',
-    location: null,
-    markers: {},
-    map: null,
-    maps: null,
-    drawer: false,
+    locations: locations,          // hardcoded locations
+    selectedLocations: locations,  // subset of currently selected locations
+    singleSelected: false,         // is one location selected
+    selection: null,               // which location is selected
+    locationType: '',              // type of locations from the locations type selector
+    location: null,                // selected location with map id, used for panning
+    markers: {},                   // markers on map
+    map: null,                     // map handler
+    maps: null,                    // maps api
+    drawer: false,                 // is drawer (location information panel) opened
   };
 
+  /*
+    Hide all markers on map.
+  */
   clearAllMarkers = () => {
     for( var key in this.state.markers ) {
       for( var location in this.state.markers[key] ) {
@@ -28,6 +31,9 @@ class App extends Component {
     }
   }
 
+  /*
+    Show all markers on map.
+  */
   showAllMarkers = () => {
     for( var key in this.state.markers ) {
       for( var location in this.state.markers[key] ) {
@@ -36,32 +42,54 @@ class App extends Component {
     }
   }
 
+  /*
+    Show single marker on map
+  */
   showMarker = ( marker ) => {
     marker.setMap(this.state.map);
   }
 
+  /*
+    Animate marker on map
+    This improves visual indication
+  */
   dropMarker = ( marker ) => {
     marker.setAnimation(this.state.maps.Animation.BOUNCE)
   }
 
+  /*
+    Show set of showMarkers on map
+  */
   showMarkers = ( markers ) => {
     for( var marker in markers ){
       this.showMarker( markers[marker] );
     }
   }
 
+  /*
+    Which type of locations are selected
+  */
   setSelected = ( _locations ) => {
     this.setState({selectedLocations: {[_locations]: this.state.locations[_locations]}});
   }
 
+  /*
+    Set all locations type as selected, reset locations selector state.
+  */
   setAllLocations = () => {
     this.setState({selectedLocations: locations});
   }
 
+  /*
+    Make locations type selection empty - used when single location is selected.
+  */
   setNoLocations = () => {
     this.setState({selectedLocations: {}});
   }
 
+  /*
+    Locations selection type selection was changed
+  */
   handleChange = ( _locations ) => {
     this.clearAllMarkers();
     this.toggleDrawer(false)();
@@ -78,6 +106,9 @@ class App extends Component {
     }
   }
 
+  /*
+    Open/close location information panel ( used with mose actions )
+  */
   toggleDrawer = ( state ) => () => {
     this.setState({
       drawer: state,
@@ -87,6 +118,9 @@ class App extends Component {
     }, 1000);
   };
 
+  /*
+    Open/close location information panel ( used with keyboard actions )
+  */
   toggleDrawerKey = ( state ) => ( event ) => {
 
     if(event.key !== 'Enter' && event.key !== 'Escape'){
@@ -101,11 +135,17 @@ class App extends Component {
     }, 1000);
   };
 
+  /*
+    Pan map to selected location. This centers map on single selected location.
+  */
   panMapToLocation = ( location ) => {
     const latLng = new this.state.maps.LatLng(location.location.lat, location.location.lng);
     this.state.map.panTo(latLng);
   }
 
+  /*
+    Single location was selected.
+  */
   handleSingeSelect = selection => {
     this.clearAllMarkers();
     const id = selection.id;
@@ -123,10 +163,16 @@ class App extends Component {
     this.panMapToLocation(location);
   };
 
+  /*
+    Marker on map was clicked
+  */
   markerClicked = ( type, id ) => {
     this.handleSingeSelect( {type, id} );
   }
 
+  /*
+    Save map information: handler, api, markers.
+  */
   getMapData = ( markers, map, maps ) => {
     this.setState({ markers, map, maps });
   }

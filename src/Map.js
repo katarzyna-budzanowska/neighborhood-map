@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
 
+/*
+  Handles map presentation
+*/
 class Map extends Component {
 
+  /*
+    Render parks markers.
+  */
   renderParks = ( map, maps ) => {
     if( !this.props.places.parks ) {
       return;
@@ -20,10 +26,9 @@ class Map extends Component {
     return markers;
   }
 
-  markerClicked = ( event ) => {
-    console.log( event );
-  }
-
+  /*
+    Render restaurants markers.
+  */
   renderRestaurants = ( map, maps ) => {
     if( !this.props.places.restaurants ) {
       return;
@@ -40,6 +45,9 @@ class Map extends Component {
     return markers;
   }
 
+  /*
+    Render monuments markers.
+  */
   renderMonuments = ( map, maps ) => {
     if( !this.props.places.monuments ) {
       return;
@@ -56,10 +64,16 @@ class Map extends Component {
     return markers;
   }
 
+  /*
+    Marker on map was clicked.
+  */
   markerClicked = ( type, id ) => ( ) => {
     this.props.markerClicked( type, id );
   }
 
+  /*
+    Support mouse interactions
+  */
   addClicEventsToMarkers = ( markers, maps ) => {
     for( var type in markers ) {
       for( var id in markers[type] ) {
@@ -72,6 +86,9 @@ class Map extends Component {
     }
   }
 
+  /*
+    Put markers on map
+  */
   renderMarkers = ( map, maps ) => {
     const markers = {};
     markers.parks = this.renderParks( map, maps );

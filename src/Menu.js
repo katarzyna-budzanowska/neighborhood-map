@@ -23,6 +23,10 @@ const styles = theme => ({
   },
 });
 
+
+/*
+  Component responsible for presenting application menu panel.
+*/
 class Menu extends Component {
   state = {
     singleSelected: false,
@@ -30,6 +34,9 @@ class Menu extends Component {
     focus: ""
   };
 
+  /*
+    Helper function that convers places object to list.
+  */
   places = () => {
     const placesByType = Object.values( this.props.selected );
     const places = [];
@@ -39,11 +46,17 @@ class Menu extends Component {
     return places;
   }
 
+  /*
+    Locations type selector was used.
+  */
   handleChange = event => {
     this.setState({ singleSelected: false });
     this.props.selectType( event.target.value );
   };
 
+  /*
+    Selection was made.
+  */
   selectLocation = event => {
     const selection = {
       type: event.target.dataset.type,
@@ -53,6 +66,9 @@ class Menu extends Component {
     this.props.singleSelect( selection );
   }
 
+  /*
+    Enter clicked on focused location.
+  */
   selectLocationKey = event => {
     if(event.key !== 'Enter'){
       return;
@@ -65,6 +81,9 @@ class Menu extends Component {
     this.props.singleSelect( selection );
   }
 
+  /*
+    Check if location is selected.
+  */
   isLocationSelected = location => {
     if( ! this.props.singleSelected) {
       return '';
@@ -76,6 +95,10 @@ class Menu extends Component {
     return ' App-menu-places-card-not-selected'
   }
 
+  /*
+    Check if location has focus. Used for focus higlight.
+    Probably would be better with pure css like in other component.
+  */
   hasFocus = id => {
     if( this.state.focus === id ) {
       return ' App-menu-places-card-has-focus';
@@ -83,6 +106,9 @@ class Menu extends Component {
     return "";
   }
 
+  /*
+    Set information about which item is selected ( has focus ) in state.
+  */
   onFocus = ( id ) => () => {
     this.setState( { focus: id } );
   }
