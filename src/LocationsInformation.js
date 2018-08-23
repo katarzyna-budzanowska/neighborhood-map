@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import LocationInformation from './LocationInformation';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Close from '@material-ui/icons/CancelTwoTone';
 
 /*
@@ -53,7 +52,7 @@ class LocationsInformation extends Component {
                 <Close aria-label="Close" className="App-close-drawer"/>
                 <div className="App-flickr-attribution">Pictures search powered by Flickr</div>
               </div>
-              {opened && <LocationInformation tabIndex="0" tags={location.tags} onFocus={this.onFocus(location.id)}/>}
+              {opened && <LocationInformation tabIndex="0" tags={location.tags} name={location.name} onFocus={this.onFocus(location.id)}/>}
             </div>
           </div>
         </Drawer>

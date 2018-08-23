@@ -6,6 +6,19 @@ import GoogleMapReact from 'google-map-react';
 */
 class Map extends Component {
 
+  constructor(props) {
+    super(props);
+  // Don't call this.setState() here!
+    this.state = { authStatus: true, mapLoaded: true };
+
+    // bind global function to this
+    window.gm_authFailure = this.authFailure;
+
+  }
+
+    authFailure = () => {
+      this.setState( { authStatus: false } );
+    }
   /*
     Render parks markers.
   */
@@ -82,17 +95,40 @@ class Map extends Component {
     this.props.getMapData(markers, map, maps);
   }
 
+  /*
+    Check if map was correctly loaded, set error state so rest of application can display status information.
+  */
+  mapLoaded = ({map, maps}) => {
+    if( map === null || maps === null ) {
+      this.setState({ mapLoaded: false })
+      return
+    }
+    this.renderMarkers(map, maps);
+  }
+
   render() {
     const {center, zoom, drawerOpened} = this.props;
     const _class = drawerOpened
       ? 'App-map-small'
       : 'App-map';
+
+    const { authStatus, mapLoaded } = this.state;
+    const showMap = authStatus && mapLoaded;
     return (
     // Important! Always set the container height explicitly
-    <div className={_class} tabIndex="-1">
-      <GoogleMapReact tabIndex="-1" bootstrapURLKeys={{
+    <div className={_class} role="application">
+      { ! authStatus &&
+        <div>
+          Google maps authentication failed. Please check if key is correct or generate a new one in Google API admin panel and reload the page.
+        </div> }
+      { ! mapLoaded &&
+        <div>
+          Google maps where not loaded. This maybe caused by connection issues or Google Maps service is down. Please try again later.
+        </div>
+      }
+      { showMap && <GoogleMapReact bootstrapURLKeys={{
           key: 'AIzaSyC9TGshWjOkzBKIVk00Ud6VVHb_Ffkrm3I'
-        }} defaultCenter={center} defaultZoom={zoom} yesIWantToUseGoogleMapApiInternals={true} onGoogleApiLoaded={({map, maps}) => this.renderMarkers(map, maps)}></GoogleMapReact>
+        }} defaultCenter={center} defaultZoom={zoom} yesIWantToUseGoogleMapApiInternals={true} onGoogleApiLoaded={this.mapLoaded}></GoogleMapReact> }
     </div>);
   }
 }

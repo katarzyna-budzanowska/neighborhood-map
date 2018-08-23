@@ -7,7 +7,7 @@ Neighborhood map is a presentation of interesting places one can visit in Wrocł
 ## Service Worker
 Service worker is only available in production build. To see it in action please check the _npm run build_ script description.
 
-## Two type of views 
+## Two type of views
 
 ## Available Scripts
 
@@ -30,6 +30,11 @@ The build is minified and the filenames include the hashes.<br>
 Your app is ready to be deployed!
 
 npm run build creates a build directory with a production build of your app. Set up your favorite HTTP server so that a visitor to your site is served index.html, and requests to static paths like /static/js/main.<hash>.js are served with the contents of the /static/js/main.<hash>.js file.
+
+To start production build locally you can issue following commands:
+  npm instasll -g pushstate-server
+  pushstate-server buil
+  open http://localhost:9000
 
 ## Dependencies
 

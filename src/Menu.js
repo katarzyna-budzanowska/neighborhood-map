@@ -117,7 +117,7 @@ class Menu extends Component {
         root: this.props.className
       }}>
       <FormControl className="App-menu-selector">
-        <NativeSelect aria-label="Select location category" value={this.props.locationType} onChange={this.handleChange} input={<Input alt = "Select locations category" name = "place" id = "place-native-helper" />} tabIndex={"-1"/* -1 removes focus on enclosing component */}>
+        <NativeSelect aria-label="Select location category" value={this.props.locationType} onChange={this.handleChange} input={<Input alt = "Select locations category" name = "place" id = "place-native-helper" />} >
           <option value="">All</option>
           <option value='none'>None</option>
           <option value='restaurants'>Restaurants</option>
@@ -131,7 +131,7 @@ class Menu extends Component {
         {
           this.props.selected && this.places().map((place, key) => {
             const _class = "App-menu-places-card" + this.isLocationSelected(place) + this.hasFocus(place.id);
-            return (<div className={_class} data-id={place.id} data-type={place.type} onClick={this.selectLocation} onKeyDown={this.selectLocationKey} onFocus={this.onFocus(place.id)} key={place.id} tabIndex="0">
+            return (<div className={_class} role="button" data-id={place.id} data-type={place.type} onClick={this.selectLocation} onKeyDown={this.selectLocationKey} onFocus={this.onFocus(place.id)} key={place.id} tabIndex="0">
               <PlaceCard place={place} aria-label="Select location, is selectable."/>
             </div>);
           })

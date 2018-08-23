@@ -4,8 +4,6 @@ import {withStyles} from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import Close from '@material-ui/icons/CancelTwoTone';
 
 const styles = theme => ({
   gridListTitle: {
@@ -70,7 +68,6 @@ class LocationInformation extends Component {
   }
 
   render() {
-    const {classes} = this.props;
     const {error, isLoaded, pictures} = this.state;
     if (error) {
       return (<div>
@@ -89,7 +86,7 @@ class LocationInformation extends Component {
                 root: "App-location-information-list-item"
               }} key={p.img}>
               <a href={p.img} className="App-location-information-list-item-image" target="_blank">
-                <img src={p.img} alt={"Location picture: " + p.title}/>
+                <img src={p.img} alt={"Location: " + this.props.name}/>
               </a>
               <GridListTileBar title={p.title}/>
             </GridListTile>))
